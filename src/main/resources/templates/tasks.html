@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <title>Tasks list</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container" style="text-align: center;">
+
+  <div>
+    <form th:action="@{/tasks/allTasks}">
+      Szukaj po imieniu:
+      <input type="text" name="keyword" required/>
+      &nbsp;
+      <input type="submit" value="szukaj" />
+      <input type="reset" value="wyczyść">
+      <a th:href="${'/tasks/allTasks'}">powrót do widoku bez filtrowania</a>
+    </form>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Opis</th>
+      <th scope="col">status zadania</th>
+      <th scope="col">twórca zadania</th>
+    </tr>
+    </thead>
+    <tbody th:each="task : ${allTasks}">
+    <tr>
+      <td th:text="${task.id}"></td>
+      <td th:text="${task.name}"></td>
+      <td th:text="${task.description}"></td>
+      <td>
+        <span th:if="${task.isCompleted()==true}">Zadanie jest ukończone</span>
+        <span th:if="${task.isCompleted()==false}">Zadanie jest nieukończone</span>
+      </td>
+      <td th:text="${task.creatorName}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="row" style="text-align: center;">
+    <form action="#" th:action="@{/logout}" method="post">
+      <input type="submit" value="Logout"/>
+    </form>
+  </div>
+</div>
+<a th:href="${'/'}">Powrót do głównej strony</a>
+</body>
+</html>
