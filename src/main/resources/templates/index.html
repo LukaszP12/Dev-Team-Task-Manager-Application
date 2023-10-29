@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Task Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body style="background-color: #FFF8DC;">
+
+<div class="card" style="color:blue;text-align: center;">
+    <h5 class="card-header">Manager zadan</h5>
+    <div class="card-body">
+        <h5 class="card-title">Aplikacja dla zespołu deweloperskiego</h5>
+        <p class="card-text">
+            Każde zadanie na nazwę, krótki opis oraz datę wymagalności, zadanie może mieć więcej niż jednego przypisanego użytkownika.
+        </p>
+    </div>
+</div>
+
+<container style="text-align: center;">
+<ul style="list-style-position: inside;" class="pagination">
+    <li><a href="/login-page">Login</a></li>
+    <li><a href="/registration/create-new-user">Zarejestruj nowego użytkownika</a></li>
+        <li><a href="/tasks/allTasks">Podejrzyj zadania</a></li>
+    <li><a href="/assign/show-free-task">Przydziel zadanie</a></li>
+    <li><a href="/users">Wyświetl wszystkich użytkowników</a></li>
+</ul>
+</container>
+
+<div class="row" style="text-align: center;">
+    <form action="#" th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+</body>
+</html>
