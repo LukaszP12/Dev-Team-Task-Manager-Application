@@ -104,14 +104,12 @@ Use the `BLANK_README.md` to get started.
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Java 11][Java 11]][Java 11]
+* [![Spring Framework][Spring Framework]][Spring Framework]
+* [![Hibernate][Hibernate]][Hibernate]
+* [![Thymeleaf][Thymeleaf]][Thymeleaf]
+* [![Spring Security][Spring Security]][Spring Security]
+* [![thymeleaf-extras-springsecurity5][thymeleaf-extras-springsecurity5]][thymeleaf-extras-springsecurity5]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,13 +138,10 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/your_username_/Project-Name.git
    ```
-3. Install NPM packages
+3. Access the main control panel 
    ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+   http://localhost:8080/ takes you to the control panel
+   you can view the h2 memory at http://localhost:8080/h2-console
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
