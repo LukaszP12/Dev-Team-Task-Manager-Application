@@ -93,7 +93,9 @@ The main control panel is available under '/' and displays the main functionalit
 Registered users can have two authorities ADMIN_USER or COMMON_USER
  
 DEMO ADMIN ACCOUNT Is available under the following credentials: 
+
 login: lukaszp4@onet.eu
+
 password: dummy123
 
 ADMIN user can create new users (are COMMON_USER) by default. He can also create new tasks and assign them to users. 
@@ -121,11 +123,16 @@ Forms used for creating Users and Tasks are tied to java bean validations and wi
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Java 11][Java 11][Java 11]]
-* [![Spring Framework][Spring Framework][Spring Framework]]
+* Java 11 [![[Java 11](https://www.google.com/url?sa=i&url=https%3A%2F%2F1000logos.net%2Fjava-logo%2F&psig=AOvVaw2s2nFzyTwXlw7LeHKO4D7w&ust=1698700643313000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPivuZSXnIIDFQAAAAAdAAAAABAE)]]
+
+*[![Spring Framework][Spring Framework][Spring Framework]]
+
 * [![Hibernate][Hibernate][Hibernate]]
+
 * [![Thymeleaf][Thymeleaf][Thymeleaf]]
+
 * [![Spring Security][Spring Security][Spring Security]]
+
 * [![thymeleaf-extras-springsecurity5][thymeleaf-extras-springsecurity5][thymeleaf-extras-springsecurity5]]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -222,9 +229,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Your Name - [Lukasz Piwowarski] lukaszp4@onet.eu
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: git clone https://github.com/LukaszP12/Dev-Team-Task-Manager-Application.git
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
