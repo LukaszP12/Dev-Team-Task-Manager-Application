@@ -106,9 +106,12 @@ following root endpoint are available:
 /users - show all users
 
 /registration - supports creating new users
+
 /tasks - supports creating new tasks
+
 /assign - supports assigning tasks to users
 
+Forms used for creating Users and Tasks are tied to java bean validations and will output alert messsage if input is not correct. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,12 +121,12 @@ following root endpoint are available:
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Java 11][Java 11]][Java 11]
-* [![Spring Framework][Spring Framework]][Spring Framework]
-* [![Hibernate][Hibernate]][Hibernate]
-* [![Thymeleaf][Thymeleaf]][Thymeleaf]
-* [![Spring Security][Spring Security]][Spring Security]
-* [![thymeleaf-extras-springsecurity5][thymeleaf-extras-springsecurity5]][thymeleaf-extras-springsecurity5]
+* [![Java 11][Java 11][Java 11]]
+* [![Spring Framework][Spring Framework][Spring Framework]]
+* [![Hibernate][Hibernate][Hibernate]]
+* [![Thymeleaf][Thymeleaf][Thymeleaf]]
+* [![Spring Security][Spring Security][Spring Security]]
+* [![thymeleaf-extras-springsecurity5][thymeleaf-extras-springsecurity5][thymeleaf-extras-springsecurity5]]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
