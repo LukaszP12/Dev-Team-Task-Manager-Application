@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assigning a task</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <form th:object="${task}" class="form-horizontal" th:action="@{/assign/assign-task}" th:method="post">
+        <fieldset>
+
+        <span th:if="${task.userId==null}">Wybierz użytkownika do zadania: </span> <span
+            th:text="${taskToAssignName}"></span>
+
+            <div class="form-group">
+
+                <label class="control-label">Przydziel użytkownika do zadania</label>
+
+                <select th:field="*{userId}">
+                    <option th:each="user : ${allUsers}"
+                            th:value="${user.id}"
+                            th:text="${user.name}"></option>
+                </select>
+                <input type="hidden" th:value="${task.taskId}" name="taskId">
+
+                <div class="row">
+                    <button type="submit" class="btn btn-default">Przydziel zadanie do użytkownika</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="row" style="text-align: center;">
+    <form action="#" th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+<a th:href="${'/assign/show-free-task'}">Powrót do poprzedniego widoku</a>
+</body>
+</html>
