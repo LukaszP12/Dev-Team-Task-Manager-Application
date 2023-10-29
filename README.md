@@ -85,16 +85,30 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Task Manager Application for dev-team is intuitive and easy to use.
+The main control panel is available under '/' and displays the main functionalities to you. 
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+ At the beginning you should be prompted to authenticate yourself by logging in. 
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+Registered users can have two authorities ADMIN_USER or COMMON_USER
+ 
+DEMO ADMIN ACCOUNT Is available under the following credentials: 
+login: lukaszp4@onet.eu
+password: dummy123
 
-Use the `BLANK_README.md` to get started.
+ADMIN user can create new users (are COMMON_USER) by default. He can also create new tasks and assign them to users. 
+
+COMMON_USER can only view the available tasks and which users are currently assignent to them. 
+
+following root endpoint are available: 
+
+/ - display panel 
+/users - show all users
+
+/registration - supports creating new users
+/tasks - supports creating new tasks
+/assign - supports assigning tasks to users
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -133,12 +147,11 @@ This is an example of how to list things you need to use the software and how to
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/LukaszP12/Dev-Team-Task-Manager-Application.git
    ```
-3. Access the main control panel 
+2. Access the main control panel 
    ```sh
    http://localhost:8080/ takes you to the control panel
    you can view the h2 memory at http://localhost:8080/h2-console
