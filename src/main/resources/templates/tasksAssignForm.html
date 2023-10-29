@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Task Assign Form</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+
+  <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container" style="text-align: center;">
+
+    <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Przydzielony użytkownika</th>
+        <th scope="col">Edytuj zadanie </th>
+        <th scope="col">Zaznacz zadanie jako zakończone </th>
+    </tr>
+    </thead>
+      <tbody th:each="task : ${freeTasks}">
+            <tr>
+                <td  th:text="${task.name}"></td>
+                <td  th:text="${task.description}"></td>
+                <td>
+                    <span th:if="${task.getOwners().size()==0}">Brak przypisanego użytkownika
+                    <a th:href="${'/assign/assign-task/' + {task.id}}">Przypisz użytkowinka</a></span>
+
+
+
+                    <span th:if="${task.getOwners().size() gt 0}">
+                        <select>
+                        <option th:each="owner : ${task.getOwners()}" th:text="${owner.name}">?</option>
+                        </select>
+                        <a th:href="${'/assign/assign-task/' + {task.id}}">Przypisz dodatkowego użytkowinka</a>
+                        <a th:href="${'/assign/remove-task/' + {task.id}}">Usun użytkownika z zadania</a>
+                    </span>
+
+
+                </td>
+                <td><span><a th:href="${'/tasks/edit/' + {task.id}}">edytuj</a></span></td>
+                <td><span><a th:href="${'/tasks/set-task-completed/' + {task.id}}">zakończ</a></span></td></tr>
+      </tbody>
+    </table>
+
+    <table class="table table-bordered">
+        <thead>
+        <p style="font-size=20px;">Zakończone zadania</p>
+        <tr>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Twórca zadania</th>
+            <th scope="col">cofnij status zakończony </th>
+        </tr>
+        </thead>
+        <tbody th:each="task : ${completedTasks}">
+        <tr>
+            <td  th:text="${task.name}">Id</td>
+            <td  th:text="${task.description}">Id</td>
+            <td  th:text="${task.CreatorName}">Id</td>
+            <td><span><a th:href="${'/tasks/set-task-not-completed/' + {task.id}}">cofnij status zakończony</a></span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <a href="/tasks/create">Aby utworzyć nowe zadanie</a>
+    </div>
+
+  </form>
+    <a th:href="${'/'}">Powrót do głównej strony</a>
+</div>
+</body>
+</html>

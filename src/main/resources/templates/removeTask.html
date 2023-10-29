@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Remove task from user</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div class="container">
+
+  <form th:object="${task}" class="form-horizontal" th:action="@{/assign/remove-task}" th:method="post">
+    <fieldset>
+
+      <span th:if="${task.userId==null}">Wybierz użytkownika do usunięcia z zadania: </span> <span
+            th:text="${taskToRemoveName}"></span>
+
+      <div class="form-group">
+
+        <label class="control-label">Usun użytkownika z zadania</label>
+
+        <select th:field="*{userId}">
+          <option th:each="user : ${allUsers}"
+                  th:value="${user.id}"
+                  th:text="${user.name}"></option>
+        </select>
+        <input type="hidden" th:value="${task.taskId}" name="taskId">
+
+        <div class="row">
+          <button type="submit" class="btn btn-default">Usun zadanie od użytkownika</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<a th:href="${'/assign/show-free-task'}">Powrót do poprzedniego widoku</a>
+</body>
+</html>
