@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New User Form</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<main class="container">
+        <div class="card mb-3">
+
+            <h1 class="my-highest-header card-header">Utwórz nowego użytkownika</h1>
+
+            <div class="card card-body">
+                <form th:action="@{/registration/create-user}" th:object="${newUser}" method="post">
+
+                    <!--name-->
+                    <div class="form-outline mb-4">
+                        <label for="name" class="form-control-label">Nazwa użytkownika</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-pen"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" field="*{name}" name="name" id="name"/>
+                        <p class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+
+                    <!--description-->
+                    <div class="form-outline mb-4">
+                        <label for="email" class="form-control-label">email użytkownika</label>
+                        <input type="text" class="form-control" field="*{email}" name="email" id="email"/>
+                        <p class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                    </div>
+
+                    <!--password-->
+                    <div class="form-outline mb-4">
+                        <label for="password" class="form-control-label">hasło użytkownika</label>
+                        <input type="password" class="form-control" field="*{password}" name="password" id="password">
+                        <p class="text text-danger" th:if="${#fields.hasErrors('password')}"
+                           th:errors="*{password}"></p>
+                    </div>
+
+                    <input type="submit" value="zarejestruj użytkownika" class="btn btn-primary btn-block mb-3"/>
+                    <a th:href="${'/'}">Powrót do głównej strony</a>
+                </form>
+            </div>
+        </div>
+</main>
+
+</body>
+</html>
