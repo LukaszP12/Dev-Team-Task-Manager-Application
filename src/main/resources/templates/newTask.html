@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <title>Create New Task</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+  <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<main class="container">
+  <div class="card mb-3">
+
+    <h1 class="my-highest-header card-header">Create new Task</h1>
+
+    <div class="card card-body">
+      <form th:action="@{/tasks/create}" th:object="${newtask}" method="post">
+
+        <!--name-->
+        <div class="form-group">
+          <label for="name" class="form-control-label">Task name</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-pen"></i>
+                            </span>
+            </div>
+            <input type="text" class="form-control"
+                   field="*{name}" name="name" id="name"/>
+          </div>
+          <p class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+
+        <!--description-->
+        <div class="form-group">
+          <label for="description" class="form-control-label">Task description</label>
+          <textarea class="form-control"
+                    field="*{description}" name="description" id="description">  </textarea>
+          <p class="text text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+        </div>
+
+        <!--date-->
+        <div class="form-group">
+          <label for="date" class="form-control-label">Date</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                            </span>
+            </div>
+            <input type="date" class="form-control"
+                   th:attr="value=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')},
+                                    min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                   field="*{date}" name="date" id="date"/>
+          <p class="text text-danger" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
+          </div>
+
+        </div>
+
+        <input type="submit" value="Submit" class="btn btn-primary"/>
+        <a th:href="${'/tasks/allTasks'}">Powrót do poprzedniego widoku</a>
+      </form>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

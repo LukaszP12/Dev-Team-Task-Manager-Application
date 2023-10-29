@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <title>Edit Task</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+<main class="container">
+  <div class="card mb-3">
+
+    <h1 class="my-highest-header card-header">Edit Task</h1>
+
+    <div class="card card-body">
+      <form th:action="@{'/tasks/edit/'+ ${editedTask.id}}" th:object="${editedTask}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <!--name-->
+        <div class="form-group">
+          <label for="name" class="form-control-label">Task name</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-pen"></i></span>
+            </div>
+            <input type="text" class="form-control"
+                   th:field="*{name}" id="name"/>
+          </div>
+          <div class="text text-danger"
+               th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+
+          </div>
+
+        <!--description-->
+        <div class="form-group">
+          <label for="description" class="form-control-label">Task description</label>
+          <textarea class="form-control"
+                    th:field="*{description}" id="description">  </textarea>
+          <div class="text text-danger"
+               th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+
+          </div>
+
+        <!--date-->
+        <div class="form-group">
+          <label for="date" class="form-control-label">Date</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+            </div>
+            <input type="date" class="form-control"
+                   th:attr="value=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')},
+                                    min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                   th:field="*{date}" id="date"/>
+          </div>
+          <div class="text text-danger"
+               th:if="${#fields.hasErrors('date')}" th:errors="*{date}">
+
+          </div>
+        </div>
+
+        <input type="submit" value="Submit" class="btn btn-primary"/>
+        <button type="reset" class="btn btn-outline-primary pull-right ml-3">Reset</button>
+        <a href="/tasks" type="reset" class="btn btn-outline-primary pull-right ml-3">Cancel</a>
+      </form>
+    </div>
+  </div>
+
+  <div class="row" style="text-align: center;">
+    <form action="#" th:action="@{/logout}" method="post">
+      <input type="submit" value="Logout"/>
+    </form>
+  </div>
+</main>
+
+<a th:href="${'/assign/show-free-task'}">Powrót do poprzedniego widoku</a>
+</body>
+</html>
