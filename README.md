@@ -98,7 +98,7 @@ login: lukaszp4@onet.eu
 
 password: dummy123
 
-ADMIN user can create new users (are COMMON_USER) by default. He can also create new tasks and assign them to users. 
+ADMIN user can create new users (are COMMON_USER by default). He can also create new tasks and assign them to users. 
 
 COMMON_USER can only view the available tasks and which users are currently assignent to them. 
 
