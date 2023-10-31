@@ -32,7 +32,7 @@ public class UserServiceImplTest {
 
         // when
         when(userRepository.findAll()).thenReturn(list);
-        List<User> allFoundProducts = usi.findAllProducts(null);
+        List<User> allFoundProducts = usi.findAllUsersByKeyword(null);
 
         // then
         Assert.assertEquals(list, allFoundProducts);

@@ -65,7 +65,7 @@ public class UserService {
         return users;
     }
 
-    public List<User> findAllProducts(String keyword) {
+    public List<User> findAllUsersByKeyword(String keyword) {
         if (keyword != null) {
             return userRepository.search(keyword);
         }

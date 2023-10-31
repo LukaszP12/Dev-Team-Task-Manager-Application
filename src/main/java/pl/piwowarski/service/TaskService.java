@@ -87,7 +87,7 @@ public class TaskService {
         return taskRepository.findAll().stream().filter(t -> t.isCompleted()).collect(Collectors.toList());
     }
 
-    public List<Task> findAllProducts(String keyword) {
+    public List<Task> findAllTasksByKeyword(String keyword) {
         if (keyword != null) {
             return taskRepository.search(keyword);
         }
