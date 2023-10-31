@@ -5,35 +5,53 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
 
 <div class="container">
 
-    <form th:object="${task}" class="form-horizontal" th:action="@{/assign/assign-task}" th:method="post">
-        <fieldset>
+        <form id="searchUser" th:action="@{/assign/assign-task} + '/' + ${taskId}">
+            Filtruj po nazwie użytkownika:
+            <input type="text" name="keyword" required/>
+            &nbsp;
+            <input type="submit" value="szukaj"/>
+            <input type="reset" value="czyść">
+            <a th:href="${'/assign/assign-task/'} + ${taskId}">powrót do widoku bez filtrowania</a></br>
+        </form>
 
-        <span th:if="${task.userId==null}">Wybierz użytkownika do zadania: </span> <span
-            th:text="${taskToAssignName}"></span>
-
+        <form th:object="${task}" class="form-horizontal" th:action="@{/assign/assign-task}" th:method="post">
             <div class="form-group">
+                <label class="control-label">Przydziel użytkownika do zadania</label><br>
+                <span style="font-weight: bold;" th:text="${taskToAssignName}"></span><br>
+                <thead>
+                <tr>
+                    <th style="font-weight: bold;" scope="col">Nazwa użytkownika</th>
+                </tr>
+                <br>
+                </thead>
 
-                <label class="control-label">Przydziel użytkownika do zadania</label>
-
-                <select th:field="*{userId}">
-                    <option th:each="user : ${allUsers}"
-                            th:value="${user.id}"
-                            th:text="${user.name}"></option>
-                </select>
-                <input type="hidden" th:value="${task.taskId}" name="taskId">
-
-                <div class="row">
-                    <button type="submit" class="btn btn-default">Przydziel zadanie do użytkownika</button>
-                </div>
+                <tbody th:each="user : ${allUsers}">
+                <tr>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td><select>
+                        <option th:each="task : ${user.tasksOwned}"
+                                th:text="${task.description}"></option>
+                    </select></td>
+                    <input type="hidden" th:value="${task.taskId}" name="taskId">
+                    <input type="hidden" th:value="${user.id}" name="userId">
+                </tr>
+                <br>
+                </tbody>
             </div>
-        </fieldset>
-    </form>
+            <div>
+                <button th:if="${#lists.size(allUsers)}==1" type="submit" value="Przydziel zadanie" class="btn btn-default">Przydziel zadanie</button>
+            </div>
+        </form>
+
 </div>
 <div class="row" style="text-align: center;">
     <form action="#" th:action="@{/logout}" method="post">

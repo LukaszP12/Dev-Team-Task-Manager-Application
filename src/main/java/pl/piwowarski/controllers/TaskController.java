@@ -18,7 +18,7 @@ import java.security.Principal;
 
 @Controller
 public class TaskController {
-    
+
     private TaskService taskService;
 
     private UserService userService;
@@ -31,7 +31,7 @@ public class TaskController {
 
     @GetMapping("/tasks/allTasks")
     public String displayAllTask(Model model, @Param("keyword") String keyword) {
-        model.addAttribute("allTasks", taskService.findAllProducts(keyword));
+        model.addAttribute("allTasks", taskService.findAllTasksByKeyword(keyword));
 
         return "tasks";
     }

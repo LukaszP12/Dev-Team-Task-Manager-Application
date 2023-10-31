@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/users")
     public String getAllUsers(Model model, @Param("keyword") String keyword) {
-        model.addAttribute("allUsers", userService.findAllProducts(keyword));
+        model.addAttribute("allUsers", userService.findAllUsersByKeyword(keyword));
 
         return "users";
     }

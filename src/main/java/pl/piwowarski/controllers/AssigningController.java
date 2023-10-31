@@ -1,6 +1,7 @@
 package pl.piwowarski.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,6 @@ import pl.piwowarski.model.User;
 import pl.piwowarski.service.TaskService;
 import pl.piwowarski.service.UserService;
 
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -38,15 +38,16 @@ public class AssigningController {
     }
 
     @GetMapping("/assign/assign-task/{taskIt}")
-    public String showAvailableUserForTask(@PathVariable("taskIt") Long taskIt, Model model) {
+    public String showAvailableUserForTask(@PathVariable("taskIt") Long taskIt, @Param("keyword") String keyword, Model model) {
         Task taskById = taskService.getTaskById(taskIt);
         model.addAttribute("taskToAssignName", taskById.getName());
-        List<User> allUsers = userService.getAllUsers();
-        model.addAttribute("allUsers", allUsers);
+        model.addAttribute("taskId", taskIt);
+        model.addAttribute("allUsers", userService.findAllUsersByKeyword(keyword));
+
         TaskToUserDto taskToUserDto = new TaskToUserDto();
         taskToUserDto.setTaskId(taskIt);
-        model.addAttribute("taskToAssign", taskIt);
         model.addAttribute("task", taskToUserDto);
+
         return "assignTask";
     }
 
