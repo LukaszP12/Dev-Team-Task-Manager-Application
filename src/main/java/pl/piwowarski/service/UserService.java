@@ -29,10 +29,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -60,15 +56,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users;
-    }
-
     public List<User> findAllUsersByKeyword(String keyword) {
         if (keyword != null) {
             return userRepository.search(keyword);
         }
+        /** .findAll() used as simplification
+         * It is acknowledged that in more extensive project
+         * it would cause a performance vulnerability
+         * */
         return userRepository.findAll();
     }
 }
