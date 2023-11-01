@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"><head>
     <title>Assigning a task</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -13,44 +12,58 @@
 
 <div class="container">
 
-        <form id="searchUser" th:action="@{/assign/assign-task} + '/' + ${taskId}">
-            Filtruj po nazwie użytkownika:
-            <input type="text" name="keyword" required/>
-            &nbsp;
-            <input type="submit" value="szukaj"/>
-            <input type="reset" value="czyść">
-            <a th:href="${'/assign/assign-task/'} + ${taskId}">powrót do widoku bez filtrowania</a></br>
-        </form>
+    <form id="searchUser" th:action="@{/assign/assign-task} + '/' + ${taskId}">
+        Filtruj po nazwie użytkownika:
+        <input type="text" name="keyword" required/>
+        &nbsp;
+        <input type="submit" value="szukaj"/>
+        <input type="reset" value="czyść">
+        <a th:href="${'/assign/assign-task/'} + ${taskId}">powrót do poprzedniego widoku</a></br>
+    </form>
 
-        <form th:object="${task}" class="form-horizontal" th:action="@{/assign/assign-task}" th:method="post">
-            <div class="form-group">
-                <label class="control-label">Przydziel użytkownika do zadania</label><br>
-                <span style="font-weight: bold;" th:text="${taskToAssignName}"></span><br>
-                <thead>
-                <tr>
-                    <th style="font-weight: bold;" scope="col">Nazwa użytkownika</th>
-                </tr>
-                <br>
-                </thead>
+    <form th:object="${task}" class="form-horizontal" th:action="@{/assign/assign-task}" th:method="post">
+        <div class="form-group form-control-lg">
+            <label class="control-label">
+                <div>
+                <span style="font-weight: bold; display: table;margin: 0 auto;">
+                    Przydziel użytkownika do zadania
+                </span><br>
+                    <span>
+                        Należy wprowadzić pojedyńczą nazwę użytkownika, wtedy uaktywni się przycisk zatwierdzenia
+                    </span>
+                </div>
+            </label><br><br>
+            <span style="font-weight: bold;">Nazwa zadania do przydzielenia: </span><br>
+            <span style="font-weight: bold; display: table; margin: 0 auto;" th:text="${taskToAssignName}"></span><br>
+            <thead>
+            <tr>
+                <th style="font-weight: bold;" scope="col">Nazwa użytkownika: </th>
+                <th style="font-weight: bold;" scope="col">Adres mailowy: </th>
+                <th style="font-weight: bold;" scope="col">Dotychczas przypisane zadania: </th>
+            </tr>
+            <br>
+            </thead>
 
-                <tbody th:each="user : ${allUsers}">
-                <tr>
-                    <td th:text="${user.name}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td><select>
-                        <option th:each="task : ${user.tasksOwned}"
-                                th:text="${task.description}"></option>
-                    </select></td>
-                    <input type="hidden" th:value="${task.taskId}" name="taskId">
-                    <input type="hidden" th:value="${user.id}" name="userId">
-                </tr>
-                <br>
-                </tbody>
-            </div>
-            <div>
-                <button th:if="${#lists.size(allUsers)}==1" type="submit" value="Przydziel zadanie" class="btn btn-default">Przydziel zadanie</button>
-            </div>
-        </form>
+            <tbody th:each="user : ${allUsers}">
+            <tr>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td><select>
+                    <option th:each="task : ${user.tasksOwned}"
+                            th:text="${task.description}"></option>
+                </select></td>
+                <input type="hidden" th:value="${task.taskId}" name="taskId">
+                <input type="hidden" th:value="${user.id}" name="userId">
+            </tr>
+            <br>
+            </tbody>
+        </div>
+        <div>
+            <button th:if="${#lists.size(allUsers)}==1" type="submit" value="Przydziel zadanie" class="btn btn-default">
+                Przydziel zadanie
+            </button>
+        </div>
+    </form>
 
 </div>
 <div class="row" style="text-align: center;">
