@@ -27,11 +27,11 @@
 
 
 
-<!-- PROJECT LOGO -->
+<!-- PROJECT  -->
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="" width="80" height="80">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
@@ -113,7 +113,11 @@ following root endpoint are available:
 
 /assign - supports assigning tasks to users
 
+![Use Cases](images/Use-Diagram-UserManagment.jpg)
+
 Forms used for creating Users and Tasks are tied to java bean validations and will output alert messsage if input is not correct. 
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
