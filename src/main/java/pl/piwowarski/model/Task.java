@@ -1,6 +1,7 @@
 package pl.piwowarski.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -23,9 +24,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
 public class Task {
 
     @Id
@@ -56,9 +58,6 @@ public class Task {
     @Fetch(value = FetchMode.SELECT)
     private Set<User> owners = new HashSet<>();
 
-    public Task() {
-    }
-
     public Task(@NotEmpty String name,
                 @NotEmpty @Size(max = 1200) String description,
                 @NotNull LocalDate date,
@@ -83,71 +82,12 @@ public class Task {
         this.owners.add(owner);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
-    public String getCreatorName() {
-        return creatorName;
-    }
-
-    public void setCreatorName(String creatorName) {
-        this.creatorName = creatorName;
-    }
-
-    public Set<User> getOwners() {
-        return owners;
-    }
-
-    public void setOwners(Set<User> owners) {
-        this.owners = owners;
-    }
 
     public void addOwner(User owner) {
         if (owners == null) {
             owners = new HashSet<>();
         }
         owners.add(owner);
-    }
-
-    public void removeOwner(User owner) {
-        getOwners().remove(owner);
     }
 
     @Override

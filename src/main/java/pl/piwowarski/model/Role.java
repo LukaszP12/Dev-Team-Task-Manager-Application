@@ -1,5 +1,10 @@
 package pl.piwowarski.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +19,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id
@@ -29,40 +38,8 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
-    public Role() {
-    }
-
     public Role(String role) {
         this.role = role;
-    }
-
-    public Role(String role, List<User> users) {
-        this.role = role;
-        this.users = users;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     @Override
