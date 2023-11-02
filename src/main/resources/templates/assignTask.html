@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="text-align: center;">
 
     <form id="searchUser" th:action="@{/assign/assign-task} + '/' + ${taskId}">
         Filtruj po nazwie użytkownika:
@@ -23,6 +23,7 @@
 
     <form th:object="${task}" class="form-horizontal" th:action="@{/assign/assign-task}" th:method="post">
         <div class="form-group form-control-lg">
+<!--        <div class="table table-bordered">-->
             <label class="control-label">
                 <div>
                 <span style="font-weight: bold; display: table;margin: 0 auto;">
@@ -33,30 +34,36 @@
                     </span>
                 </div>
             </label><br><br>
-            <span style="font-weight: bold;">Nazwa zadania do przydzielenia: </span><br>
-            <span style="font-weight: bold; display: table; margin: 0 auto;" th:text="${taskToAssignName}"></span><br>
+            <span>Nazwa zadania do przydzielenia: </span><br>
+            <span style="display: table; margin: 0 auto;" th:text="${taskToAssignName}"></span><br>
+                <table table table-bordered>
+            <div class="fw-bold;">
             <thead>
             <tr>
-                <th style="font-weight: bold;" scope="col">Nazwa użytkownika: </th>
+                <th scope="col">Nazwa użytkownika: </th>
                 <th style="font-weight: bold;" scope="col">Adres mailowy: </th>
                 <th style="font-weight: bold;" scope="col">Dotychczas przypisane zadania: </th>
             </tr>
             <br>
+            </div>
             </thead>
 
             <tbody th:each="user : ${allUsers}">
             <tr>
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.email}"></td>
-                <td><select>
+                <td><select th:if="${user.tasksOwned.size() gt 0}">
                     <option th:each="task : ${user.tasksOwned}"
                             th:text="${task.description}"></option>
-                </select></td>
+                </select>
+                <span th:if="${user.tasksOwned.size() == 0}">Brak przypisanych zadan</span>
+                </td>
                 <input type="hidden" th:value="${task.taskId}" name="taskId">
                 <input type="hidden" th:value="${user.id}" name="userId">
             </tr>
             <br>
             </tbody>
+            </table>
         </div>
         <div>
             <button th:if="${#lists.size(allUsers)}==1" type="submit" value="Przydziel zadanie" class="btn btn-default">
