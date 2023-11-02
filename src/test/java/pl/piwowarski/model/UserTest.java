@@ -1,23 +1,39 @@
 package pl.piwowarski.model;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import pl.piwowarski.repository.UserRepository;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserTest {
-
     @Mock
     private UserRepository userRepository;
 
     private LocalDate time = LocalDate.now();
+
+    @Before
+    public void setUp() {
+        User userRichard = new User("richard12@onet.pl", "rick12", "demo123");
+
+        Mockito.when(userRepository.findByEmail(userRichard.getEmail()))
+                .thenReturn(userRichard);
+    }
+
+    @Test
+    public void whenValidEmail_thenUserShouldBeFound() {
+        String email = "richard12@onet.pl";
+        User found = userRepository.findByEmail(email);
+
+        Assert.assertEquals(found.getEmail(), email);
+    }
 
     @Test
     public void user_new_tasks_are_in_progress() {
