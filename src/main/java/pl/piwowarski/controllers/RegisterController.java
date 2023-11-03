@@ -50,4 +50,11 @@ public class RegisterController {
         return "redirect:/users";
     }
 
+    @GetMapping("/registration/grant-admin/{id}")
+    public String grantAdminRightsUser(@PathVariable("id") Long id) {
+        User userById = userService.getUserById(id);
+        userService.setRoleAsAdmin(userById);
+        return "redirect:/users";
+    }
+
 }

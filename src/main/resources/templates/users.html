@@ -32,6 +32,7 @@
             <th scope="col">nazwa</th>
             <th scope="col">email</th>
             <th scope="col">zadania przypisane do użytkownika</th>
+            <th scope="col">nadaj uprawnienia admina</th>
         </tr>
         </thead>
         <tbody th:each="user : ${allUsers}">
@@ -45,6 +46,8 @@
             </select></td>
             <td><span sec:authorize="hasAnyAuthority('ADMIN_USER')"><a
                     th:href="${'/registration/remove-user/' + {user.id}}">usun użytkownika</a></span></td>
+            <td><span sec:authorize="hasAnyAuthority('ADMIN_USER')"><a
+                    th:href="${'/registration/grant-admin/' + {user.id}}">nadaj uprawnienia admina</a></span></td>
         </tr>
         </tbody>
     </table>
