@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.piwowarski.exceptions.UserNotFoundException;
 import pl.piwowarski.model.User;
 import pl.piwowarski.service.UserService;
 
@@ -45,14 +46,16 @@ public class RegisterController {
     }
 
     @GetMapping("/registration/remove-user/{id}")
-    public String removeUser(@PathVariable("id") Long id) {
-        userService.deleteUser(id);
+    public String removeUser(@PathVariable("id") Long id) throws UserNotFoundException {
+        User userById = userService.getUserById(id).orElseThrow(() -> new UserNotFoundException());
+
+        userService.deleteUser(userById.getId());
         return "redirect:/users";
     }
 
     @GetMapping("/registration/grant-admin/{id}")
-    public String grantAdminRightsUser(@PathVariable("id") Long id) {
-        User userById = userService.getUserById(id);
+    public String grantAdminRightsUser(@PathVariable("id") Long id) throws UserNotFoundException {
+        User userById = userService.getUserById(id).orElseThrow(() -> new UserNotFoundException());
         userService.setRoleAsAdmin(userById);
         return "redirect:/users";
     }

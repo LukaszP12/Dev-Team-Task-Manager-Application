@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.piwowarski.exceptions.TaskNotFoundException;
 import pl.piwowarski.model.Task;
 import pl.piwowarski.service.TaskService;
 import pl.piwowarski.service.UserService;
@@ -60,8 +61,9 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/edit/{id}")
-    public String editingTaskForm(@PathVariable Long id, Model model) {
-        model.addAttribute("editedTask", taskService.getTaskById(id));
+    public String editingTaskForm(@PathVariable Long id, Model model) throws TaskNotFoundException {
+        Task taskById = taskService.getTaskById(id).orElseThrow(() -> new TaskNotFoundException());
+        model.addAttribute("editedTask", taskById);
         return "taskedit";
     }
 
@@ -78,14 +80,16 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/set-task-completed/{id}")
-    public String setTaskCompleted(@PathVariable Long id) {
-        taskService.setTaskToCompleted(id);
+    public String setTaskCompleted(@PathVariable Long id) throws TaskNotFoundException {
+        Task taskById = taskService.getTaskById(id).orElseThrow(() -> new TaskNotFoundException());
+        taskService.setTaskToCompleted(taskById.getId());
         return "redirect:/assign/show-free-task";
     }
 
     @GetMapping("/tasks/set-task-not-completed/{id}")
-    public String setTaskToNotCompleted(@PathVariable Long id) {
-        taskService.setTaskToNotCompleted(id);
+    public String setTaskToNotCompleted(@PathVariable Long id) throws TaskNotFoundException {
+        Task taskById = taskService.getTaskById(id).orElseThrow(() -> new TaskNotFoundException());
+        taskService.setTaskToNotCompleted(taskById.getId());
         return "redirect:/assign/show-free-task";
     }
 
