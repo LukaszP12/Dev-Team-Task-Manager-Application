@@ -9,6 +9,7 @@ import pl.piwowarski.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,8 +33,8 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public Task getTaskById(Long taskId) {
-        return taskRepository.findById(taskId).get();
+    public Optional<Task> getTaskById(Long taskId) {
+        return Optional.of(taskRepository.findById(taskId).get());
     }
 
     public void updateTask(Long id, Task task) {

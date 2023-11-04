@@ -11,6 +11,7 @@ import pl.piwowarski.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -33,8 +34,8 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId).orElse(null);
+    public Optional<User> getUserById(Long userId) {
+        return Optional.of(userRepository.findById(userId).get());
     }
 
     public void deleteUser(Long id) {
