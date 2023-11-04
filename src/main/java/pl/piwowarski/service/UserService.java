@@ -38,17 +38,19 @@ public class UserService {
         return Optional.of(userRepository.findById(userId).get());
     }
 
-    public void deleteUser(Long id) {
+    public Long deleteUser(Long id) {
         User user = userRepository.getOne(id);
         user.setTasksOwned(null);
         userRepository.delete(user);
+        return user.getId();
     }
 
-    public void createUser(User user) {
+    public Long createUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role commonUser = roleRepository.findByRole("COMMON_USER");
         user.setRoles(new ArrayList<>(Collections.singletonList(commonUser)));
         userRepository.save(user);
+        return user.getId();
     }
 
     public User setRoleAsAdmin(User user) {

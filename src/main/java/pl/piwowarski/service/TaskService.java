@@ -29,20 +29,22 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public void createTask(Task task) {
-        taskRepository.save(task);
+    public Long createTask(Task task) {
+        Task savedTask = taskRepository.save(task);
+        return savedTask.getId();
     }
 
     public Optional<Task> getTaskById(Long taskId) {
         return Optional.of(taskRepository.findById(taskId).get());
     }
 
-    public void updateTask(Long id, Task task) {
+    public Long updateTask(Long id, Task task) {
         Task taskById = taskRepository.findById(id).get();
         taskById.setName(task.getName());
         taskById.setDescription(task.getDescription());
         taskById.setDate(task.getDate());
-        taskRepository.save(taskById);
+        Task updatedTask = taskRepository.save(taskById);
+        return updatedTask.getId();
     }
 
     public void deleteTask(Long id) {
@@ -53,17 +55,19 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public void setTaskToCompleted(Long id) {
+    public Long setTaskToCompleted(Long id) {
         Task task = taskRepository.getOne(id);
         task.setCompleted(true);
         task.getOwners().clear();
-        taskRepository.save(task);
+        Task savedTask = taskRepository.save(task);
+        return savedTask.getId();
     }
 
-    public void setTaskToNotCompleted(Long id) {
+    public Task setTaskToNotCompleted(Long id) {
         Task task = taskRepository.getOne(id);
         task.setCompleted(false);
-        taskRepository.save(task);
+        Task savedTask = taskRepository.save(task);
+        return savedTask;
     }
 
     public void assignUserToTask(Long taskId, Long userId) {
