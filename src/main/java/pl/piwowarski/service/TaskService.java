@@ -2,6 +2,8 @@ package pl.piwowarski.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.piwowarski.Dto.TaskDto;
+import pl.piwowarski.mapper.TaskMapper;
 import pl.piwowarski.model.Task;
 import pl.piwowarski.model.User;
 import pl.piwowarski.repository.TaskRepository;
@@ -16,8 +18,9 @@ import java.util.stream.Collectors;
 public class TaskService {
 
     private TaskRepository taskRepository;
-
+    private TaskMapper taskMapper;
     private UserRepository userRepository;
+
 
     @Autowired
     public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
@@ -25,12 +28,23 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
+        this.taskMapper = taskMapper;
     }
 
-    public void createTask(Task task) {
-        taskRepository.save(task);
+    public TaskDto createTask(TaskDto taskDto) {
+        List<User> assignedUsers = userRepository.findAllById(taskDto.getAssignedUserIds());
+
+        if (assignedUsers.size() != taskDto.getAssignedUserIds().size()){
+            throw new IllegalArgumentException("Some assigned users do not exist");
+        }
+
+        Task task = taskMapper.toEntity(taskDto, assignedUsers);
+
+        Task savedTask = taskRepository.save(task);
+
+        return TaskMapper.toDto(savedTask);
     }
 
     public Optional<Task> getTaskById(Long taskId) {
