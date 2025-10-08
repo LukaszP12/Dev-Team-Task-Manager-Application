@@ -43,7 +43,9 @@ public class User {
     @Column(unique = true)
     private String email;
     @NotEmpty(message = "{user.name.notEmpty}")
-    private String name;
+    private String firstName;
+    @NotEmpty(message = "{user.name.notEmpty}")
+    private String lastName;
     @NotEmpty(message = "{user.password.notEmpty}")
     @Length(min = 5, message = "{user.password.required.length}")
     private String password;
