@@ -3,6 +3,8 @@ package pl.piwowarski.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.piwowarski.Dto.UserDto;
+import pl.piwowarski.mapper.UserMapper;
 import pl.piwowarski.model.Role;
 import pl.piwowarski.model.User;
 import pl.piwowarski.repository.RoleRepository;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -24,6 +27,8 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private UserMapper userMapper;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -44,11 +49,13 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public void createUser(User user) {
+    public User createUser(UserDto userDto) {
+        User user = userMapper.toEntity(userDto);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role commonUser = roleRepository.findByRole("COMMON_USER");
         user.setRoles(new ArrayList<>(Collections.singletonList(commonUser)));
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return savedUser;
     }
 
     public User setRoleAsAdmin(User user) {
@@ -66,5 +73,12 @@ public class UserService {
          * it would cause a performance vulnerability
          * */
         return userRepository.findAll();
+    }
+
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
