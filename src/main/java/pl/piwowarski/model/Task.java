@@ -10,6 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,13 +38,30 @@ public class Task {
     @Column(name = "task_id")
     private Long id;
 
-    @NotEmpty(message = "{task.name.notEmpty}")
-    private String name;
-
+    @Column(nullable = false)
+    private String title;
     @NotEmpty(message = "{task.description.notEmpty}")
     @Column(length = 1200)
     @Size(max = 1200, message = "{task.description.required.size}")
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskStatus status;
+
+    @Column(nullable = false)
+    private LocalDate dueDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "task_user",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> assignedUsers;
+
+    @NotEmpty(message = "{task.name.notEmpty}")
+    private String name;
 
     @NotNull(message = "{task.date.notNull}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
